@@ -3,10 +3,10 @@ python:
 - '3.6'
 install:
 - pip install -r requirements_dev.txt
-- pip install -e . 
-- python setup.py build_ext --inplace --define CYTHON_TRACE
+- python setup.py build_ext --inplace --force --define CYTHON_TRACE
 script:
-- pytest --flake8 --cov-report html --cov cyko tests/
+- ls
+- pytest --verbose --flake8 --cov-report html --cov cyko tests/
 after_success:
 - coveralls
 deploy:
