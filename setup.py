@@ -6,7 +6,7 @@ import numpy as np
 
 setup(
     name='cyko',
-    version='0.1.0',
+    version='0.1.1',
     description='Konno Omachi filter implemented in Cython.',
     author='Albert Kottke',
     author_email='albert.kottke@gmail.com',
