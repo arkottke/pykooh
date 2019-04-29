@@ -8,6 +8,24 @@
 
 Konno Omachi filter implemented in Cython.
 
+This code implements Konno-Ohmachi spectral smoothing as defined in: 
+> Konno, K. and Ohmachi, T., 1998. Ground-motion characteristics estimated from spectral ratio between horizontal and 
+vertical components of microtremor. Bulletin of the Seismological Society of America, 88(1), pp.228-241.
+
+This code was originally written for smoothing sub-module in 
+[gmprocess](https://github.com/usgs/groundmotion-processing/tree/master/gmprocess/smoothing) by Bruce Worden. Dave Boore 
+has provided 
+[notes](http://daveboore.com/daves_notes/notes%20on%20smoothing%20over%20logarithmically%20spaced%20freqs.pdf) 
+on this topic, which also may be of interest. 
+
+# Installation
+
+`cyko` is available via `pip` and can be installed with:
+```
+pip install cyko
+```
+Note that `cython` and C compiler are required.
+
 # Usage
 
 Smooth a signal using a bandwith of 30.
