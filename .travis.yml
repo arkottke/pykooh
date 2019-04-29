@@ -15,5 +15,5 @@ deploy:
     secure: XJ68lufBupCicSgg7mnA85+IsXVHgqKOV3ZfUwjruKh4J/5e67XJXfKZs5vx66VL872bjoID/NPZ2TpGlf48MMT4leIokPmO0IZy0B4Ixsar0ABq1z76x3YUvFYLIxWGGyd1wtFDZfJiCYHJoO98I/CT/g2Uphb7Fzux77vYGok=
   on:
     tags: true
-    distributions: sdist bdist_wheel
+    distributions: sdist
     repo: arkottke/cyko
