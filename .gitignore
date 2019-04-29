@@ -1,7 +1,9 @@
+#
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
 *$py.class
+cyko/konno_ohmachi.c
 
 # C extensions
 *.so
@@ -99,6 +101,12 @@ venv.bak/
 
 # mkdocs documentation
 /site
+
+# PyCharm
+.idea/
+
+# Vim
+tags
 
 # mypy
 .mypy_cache/
