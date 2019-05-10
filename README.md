@@ -16,7 +16,8 @@ This code was originally written for smoothing sub-module in
 [gmprocess](https://github.com/usgs/groundmotion-processing/tree/master/gmprocess/smoothing) by Bruce Worden. Dave Boore 
 has provided 
 [notes](http://daveboore.com/daves_notes/notes%20on%20smoothing%20over%20logarithmically%20spaced%20freqs.pdf) 
-on this topic, which also may be of interest. 
+on this topic, which also may be of interest. Notes regarding the characteristics of the Konno-Ohmachi filter and the 
+implementation are provided [here](implemenation.ipynb).
 
 # Installation
 
@@ -34,6 +35,8 @@ Smooth a signal using a bandwith of 30.
 import cyko
 signal_smooth = cyko.smooth(freqs, freqs_raw, signal_raw, 30)
 ```
+
+Additional examples and comparison with `obspy` are provided in [example.ipynb](example.ipynb).
 
 # Citation
 
