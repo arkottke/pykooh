@@ -5,8 +5,8 @@ install:
 - pip install -r requirements_dev.txt
 - python setup.py build_ext --inplace --force --define CYTHON_TRACE
 script:
-- ls
-- pytest --verbose --flake8 --cov-report html --cov cyko tests/
+# Have the current path added to sys.path for CYTHON_TRACE to work
+- python -m pytest --verbose --flake8 --cov-report html --cov cyko tests/
 after_success:
 - coveralls
 deploy:
