@@ -9,7 +9,7 @@ cimport numpy as np
 cdef extern from "smoothing.h":
     void konno_ohmachi_c(double *spec, double *freqs, int ns,
                          double *ko_freqs, double *ko_smooth, int nks,
-                         double bandwidth);
+                         double b);
 
 
 @cython.embedsignature(True)
@@ -17,7 +17,7 @@ def smooth(
         np.ndarray[double, ndim=1, mode='c']ko_freqs,
         np.ndarray[double, ndim=1, mode='c']freqs,
         np.ndarray[double, ndim=1, mode='c']spec,
-        bandwidth
+        b
 ):
     """
     Parameters
@@ -28,8 +28,8 @@ def smooth(
         Frequencies of the original spectrum
     spec: :class:`numpy.ndarray`
         Original spectrum
-    bandwidth: float
-        Bandwidth of the smoothing operator.
+    b: float
+        _b_ parameter of the filter window, controls bandwidth.
     Returns
     -------
     smoothed: :class:`numpy.ndarray`
@@ -42,7 +42,7 @@ def smooth(
     konno_ohmachi_c(
         <double *>spec.data, <double *>freqs.data, ns,
         <double *>ko_freqs.data, <double *>ko_smooth.data, nks,
-        bandwidth
+        b
     )
 
     return ko_smooth

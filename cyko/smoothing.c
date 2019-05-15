@@ -13,12 +13,17 @@
  * https://github.com/arkottke/notebooks/blob/master/effective_amp_spectrum.ipynb
  * It was rewritten and optimized in C by Bruce Worden.
  */
-void konno_ohmachi_c(double *spec, double *freqs, int ns,
-                     double *ko_freqs, double *ko_smooth, int nks,
-                     double bandwidth) {
+void konno_ohmachi_c(
+        double *spec, 
+        double *freqs, 
+        int ns,
+        double *ko_freqs, 
+        double *ko_smooth, 
+        int nks,
+        double b) {
     int i, j;
     double window_total, total, x, fc, freq, frat, window;
-    double max_ratio = pow(10.0, (3.0 / bandwidth));
+    double max_ratio = pow(10.0, (3.0 / b));
     double min_ratio = 1.0 / max_ratio;
 
     for(i = 0; i < nks; i++) {
@@ -38,7 +43,7 @@ void konno_ohmachi_c(double *spec, double *freqs, int ns,
             } else if (fabs(freq - fc) < 1e-6) {
                 window = 1.0;
             } else {
-                x = bandwidth * log10(frat);
+                x = b * log10(frat);
                 window = sin(x) / x;
                 window *= window;
                 window *= window;
