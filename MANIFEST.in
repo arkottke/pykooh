@@ -1,1 +1,1 @@
-include cyko *.pyx *.h
+recursive-include cyko *.pyx *.h
