@@ -3,8 +3,7 @@ python:
 - '3.6'
 install:
 - pip install -r requirements_dev.txt
-- python setup.py sdist
-- pip install -v dist/cyko-*.tar.gz
+- pip install .
 script:
 - pytest --verbose --flake8 --cov-report html --cov cyko tests/
 after_success:
