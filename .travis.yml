@@ -3,9 +3,10 @@ python:
 - '3.6'
 install:
 - pip install -r requirements_dev.txt
-- pip install .
+- python setup.py build_ext --inplace --force --define CYTHON_TRACE
 script:
-- pytest --verbose --flake8 --cov-report html --cov cyko tests/
+# Have the current path added to sys.path for CYTHON_TRACE to work
+- python -m pytest --verbose --flake8 --cov-report html --cov cyko tests/
 after_success:
 - coveralls
 deploy:
