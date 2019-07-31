@@ -3,8 +3,8 @@ python:
 - '3.6'
 install:
 - pip install -r requirements_dev.txt
-- python setup.py build_ext --inplace --force --define CYTHON_TRACE
-- pip install -e .
+- python setup.py sdist
+- pip install dist/*.tar.gz
 script:
 - pytest --verbose --flake8 --cov-report html --cov cyko tests/
 after_success:
