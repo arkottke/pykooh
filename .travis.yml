@@ -4,7 +4,7 @@ python:
 install:
 - pip install -r requirements_dev.txt
 - python setup.py sdist
-- pip install dist/*.tar.gz
+- pip install -v dist/cyko-*.tar.gz
 script:
 - pytest --verbose --flake8 --cov-report html --cov cyko tests/
 after_success:
