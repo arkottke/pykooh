@@ -1,0 +1,1 @@
+include cyko *.pyx *.h
