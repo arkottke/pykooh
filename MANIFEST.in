@@ -1,0 +1,3 @@
+# Include the required header and pyx files
+include cyko/*.h
+include cyko/*.pyx
