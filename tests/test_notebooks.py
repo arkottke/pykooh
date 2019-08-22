@@ -25,6 +25,7 @@ cwd = pathlib.Path(__file__).parent
 
 fpaths = [
     cwd / '../example.ipynb',
+    cwd / '../implementation.ipynb',
 ]
 
 fpaths = sorted(fpaths)
