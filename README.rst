@@ -1,7 +1,7 @@
 cyko
 ====
 
-|PyPi Cheese Shop| |Build Status| |Test Coverage| |License| |DOI|
+|PyPi Cheese Shop| |Build Status| |Code Quality| |Test Coverage| |License| |DOI|
 
 Konno Omachi filter implemented in Cython.
 
@@ -58,9 +58,9 @@ Please cite this software using the following DOI_.
    :target: https://img.shields.io/pypi/v/cyko.svg
 .. |Build Status| image:: https://travis-ci.org/arkottke/cyko.svg?branch=master
    :target: https://travis-ci.org/arkottke/cyko
-.. |Code Quality| image:: .. image:: https://api.codacy.com/project/badge/Grade/a644be36913545708df56fb487e0f9cd
-    :target: https://www.codacy.com/app/arkottke/cyko
-.. |Test Coverage| image:: image:: https://api.codacy.com/project/badge/Coverage/a644be36913545708df56fb487e0f9cd    
+.. |Code Quality| image:: https://api.codacy.com/project/badge/Grade/a644be36913545708df56fb487e0f9cd
+   :target: https://www.codacy.com/app/arkottke/cyko
+.. |Test Coverage| image:: https://api.codacy.com/project/badge/Coverage/a644be36913545708df56fb487e0f9cd    
    :target: https://www.codacy.com/app/arkottke/cyko
 .. |License| image:: https://img.shields.io/badge/license-MIT-blue.svg
 .. |DOI| image:: https://zenodo.org/badge/183696586.svg
