@@ -5,15 +5,18 @@ from Cython.Build import cythonize
 import numpy as np
 
 
-with open('README.md', 'r') as fh:
-    long_description = fh.read()
+with open('README.rst') as fp:
+    readme = fp.read()
+
+with open('HISTORY.rst') as fp:
+    history = fp.read()
+
 
 setup(
     name='cyko',
     version='0.2.2',
     description='Konno Omachi filter implemented in Cython.',
-    long_description=long_description,
-    long_description_content_type='text/markdown',
+    long_description=readme + '\n\n' + history,
     author='Albert Kottke',
     author_email='albert.kottke@gmail.com',
     url='https://github.com/arkottke/cyko',
