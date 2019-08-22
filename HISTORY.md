@@ -1,5 +1,8 @@
 # Revision History
 
+## v0.2.2
+- Moved Cython to a setup_requires
+
 ## v0.2.1
 - Fixed packaging issue
 

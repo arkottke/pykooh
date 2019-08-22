@@ -10,7 +10,7 @@ with open('README.md', 'r') as fh:
 
 setup(
     name='cyko',
-    version='0.2.1',
+    version='0.2.2',
     description='Konno Omachi filter implemented in Cython.',
     long_description=long_description,
     long_description_content_type='text/markdown',
@@ -21,10 +21,10 @@ setup(
     include_package_data=True,
     install_requires=[
         'setuptools',
-        'cython',
         'numpy',
     ],
     setup_requires=[
+        'cython',
         'pytest-runner',
     ],
     tests_require=[
