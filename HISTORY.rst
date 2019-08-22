@@ -1,6 +1,11 @@
 Revision History
 ================
 
+v0.2.3
+------
+-  Updated badges.
+-  Added tests for example and implemenation notebooks.
+
 v0.2.2
 ------
 
