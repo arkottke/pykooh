@@ -8,6 +8,7 @@ ipykernel
 jupyter_client
 nbconvert
 nbformat
+obspy
 pydocstyle
 codacy-coverage
 pytest-cov
