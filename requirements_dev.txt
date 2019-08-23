@@ -1,7 +1,6 @@
 -r ./requirements.txt
 -r ./requirements_rtfd.txt
 
-coveralls
 cryptography
 flake8
 ipykernel
