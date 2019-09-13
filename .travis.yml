@@ -1,22 +1,22 @@
 language: python
 python:
-- '3.6'
+  - '3.7'
 install:
-- pip install -r requirements_dev.txt
-- python setup.py build_ext --inplace --force --define CYTHON_TRACE
-- pip install -e .
+  - pip install -r requirements_dev.txt
+  - python setup.py build_ext --inplace --force --define CYTHON_TRACE
+  - pip install -e .
 script:
-# Have the current path added to sys.path for CYTHON_TRACE to work
-- python -m pytest --verbose --flake8 --cov-report html --cov cyko tests/
+  # Have the current path added to sys.path for CYTHON_TRACE to work
+  - python -m pytest --verbose --flake8 --cov-report html --cov cyko tests/
 after_success:
-- coverage xml
-- python-codacy-coverage -r coverage.xml
+  - coverage xml
+  - python-codacy-coverage -r coverage.xml
 deploy:
   provider: pypi
   user: arkottke
   password:
     secure: YzMFZdBrA8ELp6Z79aU0cWqL01UPf2GblZ7/ngtjGYf1TAZIxynLw6+WdIf/rktuv5CkVxtCWiF79FLKzP0omlv/O+zMN6jxGlyf0nDc2/WUaZ4/DjT/cteI3RvbqNf0xV1hAXKBCiVWa+wN8KAjLpYLDTTgXpb4dn+1kvASM3euLccPHBUdog+fxVXZ14Sy1nNwMYwUZvgfPLqJFSqz0UfKTOXxPNKY0jLRL9tKAqeushZxUEFqjPV9rq3uMn1JCgs8I5CnRXLH0XVZaike3/fpqk8H5RioXp0hV01TBPVthzOez8EyW4te3CFWcZeTAROI1tfcpK2H/6ckfkCLbIOSbdKOi4O60G2PsWxTtHkzmR9zTmXQS2lwhxzFLNPlgA+wtl+kG/bfBu5p95kpNMIDBYikDSjnIAj3u29I8hYHiKHXztwznpbI3qRGTfnN3mie0fY7fpsjd5YDEDhO9JNu3rBIEeNFkmJxUVEjCFqy23EOv/N0zXV/YqEXnd/1HjHL51cu2iadJjaq1UOIHJ/S0B8I70/U2POfc7STFiS3E9X3f4TpJeRb8/oHB13YVii8KhpUI4Qhowqxj/9oqNjHuhjJcUdiAZ6eu6jdHA1G/MsA74hGNEJhzlRLBMWJ3b2oD+rpjVWwjcmhoAJgG4RYotfcZbRzkJyYizl6oB4=
-  on:
-    tags: true
-    distributions: sdist
-    repo: arkottke/cyko
+    on:
+      tags: true
+      distributions: sdist
+      repo: arkottke/cyko
