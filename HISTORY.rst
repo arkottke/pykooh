@@ -1,6 +1,10 @@
 Revision History
 ================
 
+v0.2.5
+------
+- Packaging is hard. MANIFEST is fixed now.
+
 v0.2.4
 ------
 - Added History to MANIFEST.
