@@ -1,6 +1,10 @@
 Revision History
 ================
 
+v0.2.4
+------
+- Added History to MANIFEST.
+
 v0.2.3
 ------
 -  Updated badges.

@@ -14,7 +14,7 @@ with open('HISTORY.rst') as fp:
 
 setup(
     name='cyko',
-    version='0.2.3',
+    version='0.2.4',
     description='Konno Omachi filter implemented in Cython.',
     long_description=readme + '\n\n' + history,
     author='Albert Kottke',
