@@ -59,9 +59,9 @@ Please cite this software using the following DOI_.
 .. |Build Status| image:: https://travis-ci.org/arkottke/cyko.svg?branch=master
    :target: https://travis-ci.org/arkottke/cyko
 .. |Code Quality| image:: https://api.codacy.com/project/badge/Grade/a644be36913545708df56fb487e0f9cd
-   :target: https://www.codacy.com/app/arkottke/cyko
+   :target: https://www.codacy.com/manual/arkottke/cyko
 .. |Test Coverage| image:: https://api.codacy.com/project/badge/Coverage/a644be36913545708df56fb487e0f9cd    
-   :target: https://www.codacy.com/app/arkottke/cyko
+   :target: https://www.codacy.com/manual/arkottke/cyko
 .. |License| image:: https://img.shields.io/badge/license-MIT-blue.svg
 .. |DOI| image:: https://zenodo.org/badge/183696586.svg
    :target: https://zenodo.org/badge/latestdoi/183696586
