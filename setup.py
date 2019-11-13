@@ -1,7 +1,5 @@
 from setuptools import setup, find_packages, Extension
 
-from Cython.Build import cythonize
-
 import numpy as np
 
 
@@ -22,24 +20,23 @@ setup(
     url='https://github.com/arkottke/cyko',
     packages=find_packages(exclude=['tests']),
     include_package_data=True,
-    install_requires=[
-        'setuptools',
-        'numpy',
-    ],
     setup_requires=[
+        # Setuptools 18.0 properly handles Cython extensions.
+        'setuptools>=18.0',
         'cython',
-        'pytest-runner',
+        'numpy'
     ],
     tests_require=[
         'pytest',
+        'pytest-runner',
     ],
-    ext_modules=cythonize([
+    ext_modules=[
         Extension(
             'cyko.konno_ohmachi',
             ['cyko/konno_ohmachi.pyx', 'cyko/smoothing.c'],
             libraries=['m'],
             include_dirs=[np.get_include()],
             extra_compile_args=['-Ofast']),
-    ]),
+    ],
     zip_safe=False,
 )
