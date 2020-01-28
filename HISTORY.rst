@@ -1,10 +1,6 @@
 Revision History
 ================
 
-v0.3.2
-------
-- Increment version to resolve PyPi conflict
-
 v0.3.0
 ------
 - Rename to pyko
