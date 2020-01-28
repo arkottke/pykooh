@@ -27,7 +27,7 @@ print(ext_modules)
 
 setup(
     name='pyko',
-    version='0.3',
+    version='0.3.2',
     description='Efficient implementatins of the Konno Omachi filter in Python',
     long_description=readme + '\n\n' + history,
     author='Albert Kottke',
