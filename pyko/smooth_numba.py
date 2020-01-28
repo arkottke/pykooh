@@ -4,14 +4,16 @@ import numpy as np
 import numba
 
 
-@numba.jit
+@numba.jit(nopython=True)
 def smooth(ko_freqs, freqs, spectrum, b):
     max_ratio = pow(10.0, (3.0 / b))
     min_ratio = 1.0 / max_ratio
 
+    total = 0
+    window_total = 0
+
     ko_smooth = np.empty_like(ko_freqs)
     for i, fc in enumerate(ko_freqs):
-        fc = ko_freqs[i]
         if fc < 1e-6:
             ko_smooth[i] = 0
             continue
