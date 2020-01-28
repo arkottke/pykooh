@@ -3,7 +3,7 @@ Revision History
 
 v0.3.0
 ------
-- Rename to pyko
+- Rename to pykoom
 - Add support for numba
 - Make cython an optonal dependency
 

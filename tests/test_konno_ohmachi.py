@@ -1,7 +1,7 @@
 import numpy as np
 import pytest
 
-import pyko
+import pykoom
 
 from . import DATA_PATH
 
@@ -23,5 +23,5 @@ b = data['b']
 
 @pytest.mark.parametrize('use_cython', use_cython)
 def test_smooth(use_cython):
-    calculated = pyko.smooth(freqs, freqs, raw_amps, b, use_cython=True)
+    calculated = pykoom.smooth(freqs, freqs, raw_amps, b, use_cython=True)
     np.testing.assert_allclose(calculated, smooth_amps, rtol=1E-3)

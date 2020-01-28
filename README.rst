@@ -1,5 +1,5 @@
-pyko
-====
+pykoom
+======
 
 |PyPi Cheese Shop| |Build Status| |Code Quality| |Test Coverage| |License| |DOI|
 
@@ -25,20 +25,20 @@ provided in the implementation_ Jupyter Notebook.
 Installation
 ============
 
-``pyko`` is available via ``pip`` and can be installed with:
+``pykoom`` is available via ``pip`` and can be installed with:
 
 ::
 
-   pip install pyko
+   pip install pykoom
 
-By default, ``pyko`` uses numba for the fast implementation of the filter.
+By default, ``pykoom`` uses ``numba`` for the fast implementation of the filter.
 Performance can be increased by using ``cython``, but this requires a C
 complier. If a C compiler is available, install ``cython`` required
 dependencies with:
 
 ::
 
-   pip install pyko[cython]
+   pip install pykoom[cython]
 
 Usage
 =====
@@ -47,8 +47,8 @@ Smooth a signal using a bandwith of 30.
 
 .. code:: python
 
-   import pyko
-   signal_smooth = pyko.smooth(freqs, freqs_raw, signal_raw, 30)
+   import pykoom
+   signal_smooth = pykoom.smooth(freqs, freqs_raw, signal_raw, 30)
 
 Additional examples and comparison with ``obspy`` are provided in example_.
 
@@ -61,14 +61,14 @@ Please cite this software using the following DOI_.
 
 .. _DOI: https://zenodo.org/badge/latestdoi/183696586
 
-.. |PyPi Cheese Shop| image:: https://img.shields.io/pypi/v/pyko.svg
-   :target: https://img.shields.io/pypi/v/pyko.svg
-.. |Build Status| image:: https://travis-ci.org/arkottke/pyko.svg?branch=master
-   :target: https://travis-ci.org/arkottke/pyko
+.. |PyPi Cheese Shop| image:: https://img.shields.io/pypi/v/pykoom.svg
+   :target: https://img.shields.io/pypi/v/pykoom.svg
+.. |Build Status| image:: https://travis-ci.org/arkottke/pykoom.svg?branch=master
+   :target: https://travis-ci.org/arkottke/pykoom
 .. |Code Quality| image:: https://api.codacy.com/project/badge/Grade/a644be36913545708df56fb487e0f9cd
-   :target: https://www.codacy.com/manual/arkottke/pyko
+   :target: https://www.codacy.com/manual/arkottke/pykoom
 .. |Test Coverage| image:: https://api.codacy.com/project/badge/Coverage/a644be36913545708df56fb487e0f9cd    
-   :target: https://www.codacy.com/manual/arkottke/pyko
+   :target: https://www.codacy.com/manual/arkottke/pykoom
 .. |License| image:: https://img.shields.io/badge/license-MIT-blue.svg
 .. |DOI| image:: https://zenodo.org/badge/183696586.svg
    :target: https://zenodo.org/badge/latestdoi/183696586
