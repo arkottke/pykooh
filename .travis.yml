@@ -19,4 +19,4 @@ deploy:
   on:
     tags: true
     distributions: sdist
-    repo: arkottke/cyko
+    repo: arkottke/pyko
