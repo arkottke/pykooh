@@ -10,7 +10,8 @@ try:
 except ImportError:
     has_cython = False
     smooth_cython = None
-    from . import smooth_numba
+
+from . import smooth_numba
 
 
 __author__ = 'Albert Kottke'
