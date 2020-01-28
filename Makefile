@@ -48,8 +48,10 @@ lint:
 	flake8 pyko tests examples
 
 test:
+	# Build the Cython dependencies
 	python setup.py build_ext --inplace --force --define CYTHON_TRACE
-	py.test --flake8 --cov-report html --cov=pyko tests/
+	# Disable numba jit
+	NUMBA_DISABLE_JIT=1 py.test --flake8 --cov-report html --cov=pyko tests/
 
 examples:
 	find examples -name 'example*.py' -exec python {} \;
