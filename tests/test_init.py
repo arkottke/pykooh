@@ -1,7 +1,7 @@
 import numpy as np
 import pytest
 
-import cyko
+import pyko
 
 from . import DATA_PATH
 
@@ -31,5 +31,5 @@ def fourier_spectra():
 def test_effective_ampl(missing, fourier_spectra):
     freqs, fourier_amps = fourier_spectra
     # FIXME Add test
-    freqs_ea, eff_ampl = cyko.effective_ampl(
+    freqs_ea, eff_ampl = pyko.effective_ampl(
         freqs, fourier_amps[:, 0], fourier_amps[:, 1], missing=missing)

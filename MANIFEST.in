@@ -3,6 +3,6 @@ include README.rst
 include HISTORY.rst
 include requirements.txt
 
-include cyko/smoothing.*
-include cyko/konno_ohmachi.c
-include cyko/konno_ohmachi.pyx
+include pyko/smoothing.*
+include pyko/konno_ohmachi.c
+include pyko/konno_ohmachi.pyx

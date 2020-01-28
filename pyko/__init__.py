@@ -1,17 +1,33 @@
-"""cyko - Cython implementation of the Konno Ohmachi."""
+"""pyko - Efficient implementatins of the Konno Omachi filter in Python."""
 
 import numpy as np
 
 from pkg_resources import get_distribution
 
-from .konno_ohmachi import smooth
+try:
+    from . import smooth_cython
+    has_cython = True
+except ImportError:
+    has_cython = False
+    smooth_cython = None
+    from . import smooth_numba
+
 
 __author__ = 'Albert Kottke'
 __copyright__ = 'Copyright 2019 Albert Kottke'
 __license__ = 'MIT'
-__title__ = 'cyko'
-__version__ = get_distribution('cyko').version
+__title__ = 'pyko'
+__version__ = get_distribution('pyko').version
 del get_distribution
+
+
+def smooth(ko_freqs, freqs, spectrum, b, use_cython=True):
+    if has_cython and use_cython:
+        smoothed = smooth_cython.smooth(ko_freqs, freqs, spectrum, b)
+    else:
+        smoothed = smooth_numba.smooth(ko_freqs, freqs, spectrum, b)
+
+    return smoothed
 
 
 def effective_ampl(freqs, fourier_amps_h1, fourier_amps_h2, freqs_ea=None,

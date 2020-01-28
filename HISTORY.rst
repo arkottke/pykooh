@@ -1,6 +1,12 @@
 Revision History
 ================
 
+v0.3.0
+------
+- Rename to pyko
+- Add support for numba
+- Make cython an optonal dependency
+
 v0.2.5
 ------
 - Packaging is hard. MANIFEST is fixed now.

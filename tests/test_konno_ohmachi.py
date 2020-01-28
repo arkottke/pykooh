@@ -1,6 +1,7 @@
 import numpy as np
+import pytest
 
-import cyko
+import pyko
 
 from . import DATA_PATH
 
@@ -12,6 +13,7 @@ smooth_amps = data['ko_amps']
 b = data['b']
 
 
-def test_smooth():
-    calculated = cyko.smooth(freqs, freqs, raw_amps, b)
+@pytest.mark.parametrize('use_cython', [True, False])
+def test_smooth(use_cython):
+    calculated = pyko.smooth(freqs, freqs, raw_amps, b, use_cython=True)
     np.testing.assert_allclose(calculated, smooth_amps, rtol=1E-3)

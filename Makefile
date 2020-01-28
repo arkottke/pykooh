@@ -45,10 +45,11 @@ clean-test:
 	rm -fr htmlcov/
 
 lint:
-	flake8 cyko tests examples
+	flake8 pyko tests examples
 
 test:
-	py.test --flake8 --cov-report html --cov=cyko tests/
+	python setup.py build_ext --inplace --force --define CYTHON_TRACE
+	py.test --flake8 --cov-report html --cov=pyko tests/
 
 examples:
 	find examples -name 'example*.py' -exec python {} \;
@@ -59,9 +60,9 @@ coverage: test
 	$(BROWSER) htmlcov/index.html
 
 docs:
-	rm -f docs/cyko.rst
+	rm -f docs/pyko.rst
 	rm -f docs/modules.rst
-	sphinx-apidoc -o docs/ cyko
+	sphinx-apidoc -o docs/ pyko
 	$(MAKE) -C docs clean
 	$(MAKE) -C docs html
 	$(BROWSER) docs/_build/html/index.html
