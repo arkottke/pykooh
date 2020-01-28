@@ -5,6 +5,14 @@ import pyko
 
 from . import DATA_PATH
 
+try:
+    import Cython  # noqa: F401
+    has_cython = True
+except ImportError:
+    has_cython = False
+
+use_cython = [True, False] if has_cython else [False, ]
+
 # Load test data
 data = np.load(str(DATA_PATH / 'test_data.npz'))
 freqs = data['freqs']
@@ -13,7 +21,7 @@ smooth_amps = data['ko_amps']
 b = data['b']
 
 
-@pytest.mark.parametrize('use_cython', [True, False])
+@pytest.mark.parametrize('use_cython', use_cython)
 def test_smooth(use_cython):
     calculated = pyko.smooth(freqs, freqs, raw_amps, b, use_cython=True)
     np.testing.assert_allclose(calculated, smooth_amps, rtol=1E-3)
