@@ -1,9 +1,9 @@
-pykoom
+pykooh
 ======
 
 |PyPi Cheese Shop| |Build Status| |Code Quality| |Test Coverage| |License| |DOI|
 
-Konno Omachi filter implemented in Cython.
+Konno Ohmachi filter implemented in Numba.
 
 This code implements Konno-Ohmachi spectral smoothing as defined in::
 
@@ -25,20 +25,20 @@ provided in the implementation_ Jupyter Notebook.
 Installation
 ============
 
-``pykoom`` is available via ``pip`` and can be installed with:
+``pykooh`` is available via ``pip`` and can be installed with:
 
 ::
 
-   pip install pykoom
+   pip install pykooh
 
-By default, ``pykoom`` uses ``numba`` for the fast implementation of the filter.
+By default, ``pykooh`` uses ``numba`` for the fast implementation of the filter.
 Performance can be increased by using ``cython``, but this requires a C
 complier. If a C compiler is available, install ``cython`` required
 dependencies with:
 
 ::
 
-   pip install pykoom[cython]
+   pip install pykooh[cython]
 
 Usage
 =====
@@ -47,8 +47,8 @@ Smooth a signal using a bandwith of 30.
 
 .. code:: python
 
-   import pykoom
-   signal_smooth = pykoom.smooth(freqs, freqs_raw, signal_raw, 30)
+   import pykooh
+   signal_smooth = pykooh.smooth(freqs, freqs_raw, signal_raw, 30)
 
 Additional examples and comparison with ``obspy`` are provided in example_.
 
@@ -61,14 +61,14 @@ Please cite this software using the following DOI_.
 
 .. _DOI: https://zenodo.org/badge/latestdoi/183696586
 
-.. |PyPi Cheese Shop| image:: https://img.shields.io/pypi/v/pykoom.svg
-   :target: https://img.shields.io/pypi/v/pykoom.svg
-.. |Build Status| image:: https://travis-ci.org/arkottke/pykoom.svg?branch=master
-   :target: https://travis-ci.org/arkottke/pykoom
+.. |PyPi Cheese Shop| image:: https://img.shields.io/pypi/v/pykooh.svg
+   :target: https://img.shields.io/pypi/v/pykooh.svg
+.. |Build Status| image:: https://travis-ci.org/arkottke/pykooh.svg?branch=master
+   :target: https://travis-ci.org/arkottke/pykooh
 .. |Code Quality| image:: https://api.codacy.com/project/badge/Grade/a644be36913545708df56fb487e0f9cd
-   :target: https://www.codacy.com/manual/arkottke/pykoom
+   :target: https://www.codacy.com/manual/arkottke/pykooh
 .. |Test Coverage| image:: https://api.codacy.com/project/badge/Coverage/a644be36913545708df56fb487e0f9cd    
-   :target: https://www.codacy.com/manual/arkottke/pykoom
+   :target: https://www.codacy.com/manual/arkottke/pykooh
 .. |License| image:: https://img.shields.io/badge/license-MIT-blue.svg
 .. |DOI| image:: https://zenodo.org/badge/183696586.svg
    :target: https://zenodo.org/badge/latestdoi/183696586

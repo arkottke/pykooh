@@ -1,6 +1,10 @@
 Revision History
 ================
 
+v0.3.1
+------
+- Rename to pykooh
+
 v0.3.0
 ------
 - Rename to pykoom

@@ -1,4 +1,4 @@
-"""pykoom - Efficient implementatins of the Konno Omachi filter in Python."""
+"""pykooh - Efficient implementatins of the Konno Omachi filter in Python."""
 
 import numpy as np
 
@@ -17,8 +17,8 @@ from . import smooth_numba
 __author__ = 'Albert Kottke'
 __copyright__ = 'Copyright 2019-2020 Albert Kottke'
 __license__ = 'MIT'
-__title__ = 'pykoom'
-__version__ = get_distribution('pykoom').version
+__title__ = 'pykooh'
+__version__ = get_distribution('pykooh').version
 del get_distribution
 
 

@@ -45,13 +45,13 @@ clean-test:
 	rm -fr htmlcov/
 
 lint:
-	flake8 pykoom tests examples
+	flake8 pykooh tests examples
 
 test:
 	# Build the Cython dependencies
 	python setup.py build_ext --inplace --force --define CYTHON_TRACE
 	# Disable numba jit
-	NUMBA_DISABLE_JIT=1 py.test --flake8 --cov-report html --cov=pykoom tests/
+	NUMBA_DISABLE_JIT=1 py.test --flake8 --cov-report html --cov=pykooh tests/
 
 examples:
 	find examples -name 'example*.py' -exec python {} \;
@@ -62,9 +62,9 @@ coverage: test
 	$(BROWSER) htmlcov/index.html
 
 docs:
-	rm -f docs/pykoom.rst
+	rm -f docs/pykooh.rst
 	rm -f docs/modules.rst
-	sphinx-apidoc -o docs/ pykoom
+	sphinx-apidoc -o docs/ pykooh
 	$(MAKE) -C docs clean
 	$(MAKE) -C docs html
 	$(BROWSER) docs/_build/html/index.html
