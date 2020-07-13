@@ -1,6 +1,10 @@
 pykooh
 ======
 
+.. image:: https://api.codacy.com/project/badge/Grade/119655dc984543af8c60f70c048afca7
+   :alt: Codacy Badge
+   :target: https://app.codacy.com/manual/arkottke/pykooh?utm_source=github.com&utm_medium=referral&utm_content=arkottke/pykooh&utm_campaign=Badge_Grade_Dashboard
+
 |PyPi Cheese Shop| |Build Status| |Code Quality| |Test Coverage| |License| |DOI|
 
 Konno Ohmachi filter implemented in Numba.
