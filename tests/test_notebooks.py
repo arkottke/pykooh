@@ -39,7 +39,6 @@ def idfn(val):
 @pytest.mark.parametrize('fpath', fpaths, ids=idfn)
 def test_notebook(fpath):
     """Execute each notebook."""
-
     # Information on running notebooks is found here
     # https://nbconvert.readthedocs.io/en/latest/execute_api.html
     with fpath.open() as fp:

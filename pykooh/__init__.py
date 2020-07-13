@@ -1,5 +1,6 @@
-"""pykooh - Efficient implementatins of the Konno Omachi filter in Python."""
+"""pykooh - Efficient implementatins of the Konno Omachi filter in Python.
 
+"""
 import numpy as np
 
 from pkg_resources import get_distribution
