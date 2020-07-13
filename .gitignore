@@ -3,7 +3,7 @@
 __pycache__/
 *.py[cod]
 *$py.class
-pykoom/smooth_cython.c
+pykooh/smooth_cython.c
 
 # C extensions
 *.so
