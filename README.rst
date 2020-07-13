@@ -65,9 +65,9 @@ Please cite this software using the following DOI_.
    :target: https://img.shields.io/pypi/v/pykooh.svg
 .. |Build Status| image:: https://travis-ci.org/arkottke/pykooh.svg?branch=master
    :target: https://travis-ci.org/arkottke/pykooh
-.. |Code Quality| image:: https://api.codacy.com/project/badge/Grade/a644be36913545708df56fb487e0f9cd
+.. |Code Quality| image:: https://app.codacy.com/project/badge/Grade/c8a3110f14e444a598713b002c20f979
    :target: https://www.codacy.com/manual/arkottke/pykooh
-.. |Test Coverage| image:: https://api.codacy.com/project/badge/Coverage/a644be36913545708df56fb487e0f9cd    
+.. |Test Coverage| image:: https://api.codacy.com/project/badge/Coverage/c8a3110f14e444a598713b002c20f979
    :target: https://www.codacy.com/manual/arkottke/pykooh
 .. |License| image:: https://img.shields.io/badge/license-MIT-blue.svg
 .. |DOI| image:: https://zenodo.org/badge/183696586.svg
