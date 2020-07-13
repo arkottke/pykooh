@@ -11,7 +11,8 @@ def read_at2(fname):
         for _ in range(3):
             next(fp)
         time_step = float(next(fp).split()[3])
-        accels = np.array([p for l in fp for p in l.split()]).astype(float)
+        accels = np.array(
+            [part for line in fp for part in line.split()]).astype(float)
     return time_step, accels
 
 
