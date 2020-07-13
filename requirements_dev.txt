@@ -14,7 +14,7 @@ pydocstyle
 pytest-cov
 pytest-flake8
 pytest-runner
-pytest>=3.5
+pytest>=4.6
 watchdog
 wheel
 yapf
