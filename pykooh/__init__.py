@@ -24,6 +24,9 @@ del get_distribution
 
 
 def smooth(ko_freqs, freqs, spectrum, b, use_cython=True):
+    # Only work on the absolute value
+    spectrum = np.abs(spectrum)
+
     if has_cython and use_cython:
         smoothed = smooth_cython.smooth(ko_freqs, freqs, spectrum, b)
     else:
