@@ -34,7 +34,7 @@ except ImportError:
 
 setup(
     name="pykooh",
-    version="0.3.1",
+    version="0.3.2",
     description="Efficient implementatins of the Konno Ohmachi filter in Python",
     long_description=readme + "\n\n" + history,
     author="Albert Kottke",

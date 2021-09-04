@@ -1,6 +1,10 @@
 Revision History
 ================
 
+v0.3.2
+------
+- Change setup.py to install numpy prior to import.
+
 v0.3.1
 ------
 - Rename to pykooh
