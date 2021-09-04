@@ -63,8 +63,8 @@ Please cite this software using the following DOI_.
 
 .. |PyPi Cheese Shop| image:: https://img.shields.io/pypi/v/pykooh.svg
    :target: https://img.shields.io/pypi/v/pykooh.svg
-.. |Build Status| image:: https://travis-ci.org/arkottke/pykooh.svg?branch=master
-   :target: https://travis-ci.org/arkottke/pykooh
+.. |Build Status| image:: https://github.com/arkottke/pykooh/actions/workflows/python-app.yml/badge.svg
+   :target: https://github.com/arkottke/pykooh/actions/workflows/python-app.yml
 .. |Code Quality| image:: https://app.codacy.com/project/badge/Grade/c8a3110f14e444a598713b002c20f979
    :target: https://www.codacy.com/manual/arkottke/pykooh
 .. |Test Coverage| image:: https://api.codacy.com/project/badge/Coverage/c8a3110f14e444a598713b002c20f979
