@@ -45,7 +45,7 @@ clean-test:
 	rm -fr htmlcov/
 
 lint:
-	flake8 pykooh tests examples
+	flake8 pykooh tests
 
 test:
 	# Build the Cython dependencies
