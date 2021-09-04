@@ -48,7 +48,7 @@ setup(
         "numba",
         "numpy",
     ],
-    extra_require={
+    extras_require={
         "cython": "cython",
     },
     tests_require=[
