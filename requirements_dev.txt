@@ -10,6 +10,7 @@ jupyter_client
 nbconvert
 nbformat
 obspy
+pre-commit
 pydocstyle
 pytest-cov
 pytest-flake8
