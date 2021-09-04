@@ -11,15 +11,14 @@ def read_at2(fname):
         for _ in range(3):
             next(fp)
         time_step = float(next(fp).split()[3])
-        accels = np.array(
-            [part for line in fp for part in line.split()]).astype(float)
+        accels = np.array([part for line in fp for part in line.split()]).astype(float)
     return time_step, accels
 
 
 @pytest.fixture()
 def fourier_spectra():
-    time_step, accels_h1 = read_at2(DATA_PATH / 'RSN4863_CHUETSU_65036EW.AT2')
-    accels_h2 = read_at2(DATA_PATH / 'RSN4863_CHUETSU_65036NS.AT2')[1]
+    time_step, accels_h1 = read_at2(DATA_PATH / "RSN4863_CHUETSU_65036EW.AT2")
+    accels_h2 = read_at2(DATA_PATH / "RSN4863_CHUETSU_65036NS.AT2")[1]
     accels = np.c_[accels_h1, accels_h2]
 
     fourier_amps = np.fft.rfft(accels, axis=0)
@@ -28,9 +27,10 @@ def fourier_spectra():
     return freqs, fourier_amps
 
 
-@pytest.mark.parametrize('missing', ['zero', 'nan', 'trim'])
+@pytest.mark.parametrize("missing", ["zero", "nan", "trim"])
 def test_effective_ampl(missing, fourier_spectra):
     freqs, fourier_amps = fourier_spectra
     # FIXME Add test
     freqs_ea, eff_ampl = pykooh.effective_ampl(
-        freqs, fourier_amps[:, 0], fourier_amps[:, 1], missing=missing)
+        freqs, fourier_amps[:, 0], fourier_amps[:, 1], missing=missing
+    )

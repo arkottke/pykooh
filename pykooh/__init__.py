@@ -7,6 +7,7 @@ from pkg_resources import get_distribution
 
 try:
     from . import smooth_cython
+
     has_cython = True
 except ImportError:
     has_cython = False
@@ -15,11 +16,11 @@ except ImportError:
 from . import smooth_numba
 
 
-__author__ = 'Albert Kottke'
-__copyright__ = 'Copyright 2019-2020 Albert Kottke'
-__license__ = 'MIT'
-__title__ = 'pykooh'
-__version__ = get_distribution('pykooh').version
+__author__ = "Albert Kottke"
+__copyright__ = "Copyright 2019-2020 Albert Kottke"
+__license__ = "MIT"
+__title__ = "pykooh"
+__version__ = get_distribution("pykooh").version
 del get_distribution
 
 
@@ -35,8 +36,9 @@ def smooth(ko_freqs, freqs, spectrum, b, use_cython=True):
     return smoothed
 
 
-def effective_ampl(freqs, fourier_amps_h1, fourier_amps_h2, freqs_ea=None,
-                   missing='zero'):
+def effective_ampl(
+    freqs, fourier_amps_h1, fourier_amps_h2, freqs_ea=None, missing="zero"
+):
     """
     Compute the effective amplitude spectrum (EAS) as defined in Kottke et al.
     (2018).
@@ -89,14 +91,14 @@ def effective_ampl(freqs, fourier_amps_h1, fourier_amps_h2, freqs_ea=None,
     # operator with a bandwidth of 1/30 of a decade
     smoothed = smooth(freqs_ea, freqs, avg, 188.5)
 
-    if missing == 'nan':
+    if missing == "nan":
         smoothed[np.isclose(smoothed, 0)] = np.nan
-    elif missing == 'trim':
+    elif missing == "trim":
         # First index with continuously defined values
         first = np.where(np.isclose(smoothed, 0))[0][-1] + 1
         freqs_ea = freqs_ea[first:]
         smoothed = smoothed[first:]
-    elif missing == 'zero':
+    elif missing == "zero":
         # Default behavior
         pass
     else:

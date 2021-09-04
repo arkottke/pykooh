@@ -23,10 +23,10 @@ def smooth(ko_freqs, freqs, spectrum, b):
         for j, freq in enumerate(freqs):
             frat = freq / fc
 
-            if (freq < 1e-6 or frat > max_ratio or frat < min_ratio):
+            if freq < 1e-6 or frat > max_ratio or frat < min_ratio:
                 continue
             elif np.abs(freq - fc) < 1e-6:
-                window = 1.
+                window = 1.0
             else:
                 x = b * np.log10(frat)
                 window = np.sin(x) / x
