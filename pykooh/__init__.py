@@ -25,9 +25,9 @@ del get_distribution
 
 def smooth(ko_freqs, freqs, spectrum, b, use_cython=True):
     if has_cython and use_cython:
-        smoothed = smooth_cython.smooth(ko_freqs, freqs, spectrum, b)
+        smoothed = smooth_cython.smooth(ko_freqs, freqs, np.abs(spectrum), b)
     else:
-        smoothed = smooth_numba.smooth(ko_freqs, freqs, spectrum, b)
+        smoothed = smooth_numba.smooth(ko_freqs, freqs, np.abs(spectrum), b)
 
     return smoothed
 
