@@ -1,6 +1,10 @@
 Revision History
 ================
 
+v0.3.3
+------
+- Fix: Force the absoluate value on the FAS in the EAS calculation. If the complex value is provided, then then EAS becomes a ** 2 + b ** 2 + 2i * (a * b) instead of the a ** 2 + b ** 2.
+
 v0.3.2
 ------
 - Change setup.py to install numpy prior to import.

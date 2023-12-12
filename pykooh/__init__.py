@@ -71,7 +71,9 @@ def effective_ampl(
     """
 
     # Calculate the average power of the two components
-    avg = np.abs(np.sqrt(0.5 * (fourier_amps_h1 ** 2 + fourier_amps_h2 ** 2)))
+    avg = np.abs(
+        np.sqrt(0.5 * (np.abs(fourier_amps_h1) ** 2 + np.abs(fourier_amps_h2) ** 2))
+    )
 
     if freqs_ea is None:
         # Frequency range is 100 points per decades

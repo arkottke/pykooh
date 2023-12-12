@@ -1,11 +1,11 @@
-from setuptools import dist
 from setuptools import Extension
 from setuptools import find_packages
 from setuptools import setup
 
 # Need to install numpy prior to using it
 # From: https://stackoverflow.com/a/60740731/562934
-dist.Distribution().fetch_build_eggs(["numpy>=1.10"])
+# from setuptools import dist
+# dist.Distribution().fetch_build_eggs(["numpy>=1.10"])
 
 import numpy as np
 
@@ -34,7 +34,7 @@ except ImportError:
 
 setup(
     name="pykooh",
-    version="0.3.2",
+    version="0.3.3",
     description="Efficient implementatins of the Konno Ohmachi filter in Python",
     long_description=readme + "\n\n" + history,
     author="Albert Kottke",
