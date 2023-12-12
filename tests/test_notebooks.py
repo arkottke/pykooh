@@ -13,13 +13,13 @@
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 #
 # Copyright (C) Albert Kottke, 2013-2019
-
 import pathlib
 
 import nbformat
 import pytest
-
-from nbconvert.preprocessors import ExecutePreprocessor, CellExecutionError
+from jupyter_client.kernelspec import find_kernel_specs
+from nbconvert.preprocessors import CellExecutionError
+from nbconvert.preprocessors import ExecutePreprocessor
 
 cwd = pathlib.Path(__file__).parent
 
@@ -29,6 +29,8 @@ fpaths = [
 ]
 
 fpaths = sorted(fpaths)
+
+kernel_specs = find_kernel_specs()
 
 
 def idfn(val):
@@ -44,7 +46,14 @@ def test_notebook(fpath):
     with fpath.open() as fp:
         nb = nbformat.read(fp, as_version=4)
 
-    ep = ExecutePreprocessor(timeout=600)
+    # Find which kernel to use. If it matches one installed use it. Otherwise try the
+    # first
+    if nb["metadata"]["kernelspec"]["name"] in kernel_specs:
+        kernel_name = nb["metadata"]["kernelspec"]["name"]
+    else:
+        kernel_name = list(kernel_specs)[0]
+
+    ep = ExecutePreprocessor(timeout=600, kernel_name=kernel_name)
 
     try:
         ep.preprocess(nb, {"metadata": {"path": fpath.parent}})
