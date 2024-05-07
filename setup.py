@@ -1,24 +1,11 @@
-from setuptools import Extension
-from setuptools import find_packages
-from setuptools import setup
+#!/usr/bin/env python
 
-# Need to install numpy prior to using it
-# From: https://stackoverflow.com/a/60740731/562934
-# from setuptools import dist
-# dist.Distribution().fetch_build_eggs(["numpy>=1.10"])
+import importlib
 
 import numpy as np
+from setuptools import Extension, setup
 
-
-with open("README.rst") as fp:
-    readme = fp.read()
-
-with open("HISTORY.rst") as fp:
-    history = fp.read()
-
-try:
-    import cython
-
+if importlib.util.find_spec("cython"):
     ext_modules = [
         Extension(
             "pykooh.smooth_cython",
@@ -28,33 +15,14 @@ try:
             extra_compile_args=["-Ofast"],
         ),
     ]
-except ImportError:
+else:
     ext_modules = []
 
-
-setup(
-    name="pykooh",
-    version="0.3.3",
-    description="Efficient implementatins of the Konno Ohmachi filter in Python",
-    long_description=readme + "\n\n" + history,
-    author="Albert Kottke",
-    author_email="albert.kottke@gmail.com",
-    url="https://github.com/arkottke/pykooh",
-    packages=find_packages(exclude=["tests"]),
-    include_package_data=True,
-    setup_requires=[
-        # Setuptools 18.0 properly handles Cython extensions.
-        "setuptools>=18.0",
-        "numba",
-        "numpy",
-    ],
-    extras_require={
-        "cython": "cython",
-    },
-    tests_require=[
-        "pytest",
-        "pytest-runner",
-    ],
-    ext_modules=ext_modules,
-    zip_safe=False,
-)
+if __name__ == "__main__":
+    setup(
+        name="pyKOOH",  # Required
+        # A list of compiler Directives is available at
+        # https://cython.readthedocs.io/en/latest/src/userguide/source_files_and_compilation.html#compiler-directives
+        # external to be compiled
+        ext_modules=ext_modules,
+    )

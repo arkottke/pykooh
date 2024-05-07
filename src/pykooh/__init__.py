@@ -1,10 +1,8 @@
-"""pykooh - Efficient implementatins of the Konno Omachi filter in Python.
+"""pykooh - Efficient implementatins of the Konno Omachi filter in Python."""
 
-"""
+from importlib.metadata import version
 
 import numpy as np
-
-from pkg_resources import get_distribution
 
 try:
     from . import smooth_cython
@@ -16,13 +14,11 @@ except ImportError:
 
 from . import smooth_numba
 
-
 __author__ = "Albert Kottke"
-__copyright__ = "Copyright 2019-2020 Albert Kottke"
+__copyright__ = "Copyright 2019-2024 Albert Kottke"
 __license__ = "MIT"
-__title__ = "pykooh"
-__version__ = get_distribution("pykooh").version
-del get_distribution
+__title__ = "pyKOOH"
+__version__ = version("pyKOOH")
 
 
 def smooth(ko_freqs, freqs, spectrum, b, use_cython=True):

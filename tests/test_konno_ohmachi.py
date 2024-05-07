@@ -1,7 +1,6 @@
 import numpy as np
-import pytest
-
 import pykooh
+import pytest
 
 from . import DATA_PATH
 
@@ -30,5 +29,5 @@ b = data["b"]
 
 @pytest.mark.parametrize("use_cython", use_cython)
 def test_smooth(use_cython):
-    calculated = pykooh.smooth(freqs, freqs, raw_amps, b, use_cython=True)
+    calculated = pykooh.smooth(freqs, freqs, raw_amps, b, use_cython=use_cython)
     np.testing.assert_allclose(calculated, smooth_amps, rtol=1e-3)
