@@ -18,8 +18,7 @@ import pathlib
 import nbformat
 import pytest
 from jupyter_client.kernelspec import find_kernel_specs
-from nbconvert.preprocessors import CellExecutionError
-from nbconvert.preprocessors import ExecutePreprocessor
+from nbconvert.preprocessors import CellExecutionError, ExecutePreprocessor
 
 cwd = pathlib.Path(__file__).parent
 
