@@ -1,21 +1,18 @@
 -r ./requirements.txt
 -r ./requirements_rtfd.txt
-
-cython
 codacy-coverage
 cryptography
-flake8
+
+cython
 ipykernel
 jupyter_client
 nbconvert
 nbformat
 obspy
 pre-commit
-pydocstyle
+pytest>=4.6
 pytest-cov
 pytest-flake8
 pytest-runner
-pytest>=4.6
-watchdog
 wheel
 yapf
