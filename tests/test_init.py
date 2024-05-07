@@ -1,7 +1,6 @@
 import numpy as np
-import pytest
-
 import pykooh
+import pytest
 
 from . import DATA_PATH
 
