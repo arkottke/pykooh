@@ -9,7 +9,7 @@ authors = [{ name = "Albert Kottke", email = "albert.kottke@gmail.com" }]
 description = "Efficient implementatins of the Konno Ohmachi filter in Python."
 readme = "README.md"
 requires-python = ">=3.10"
-license = "MIT"
+license = { text = "MIT" }
 dependencies = [
     "numpy",
     "numba",
