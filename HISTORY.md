@@ -10,11 +10,11 @@
   the complex value is provided, then EAS becomes a \*\* 2 + b
   \*\* 2 + 2i \* (a \* b) instead of the a \*\* 2 + b \*\* 2.
 
-## v0.3.2
+## v0.3.2 (2021-09-03)
 
 - Change setup.py to install numpy prior to import.
 
-## v0.3.1
+## v0.3.1 (2020-07-17)
 
 - Rename to pykooh
 
