@@ -1,6 +1,6 @@
 # Revision History
 
-## v0.4.0
+## v0.4.0 (2024-05-08)
 
 - Change to pyproject-based build
 
