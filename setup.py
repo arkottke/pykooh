@@ -2,10 +2,11 @@
 
 import importlib
 
-import numpy as np
 from setuptools import Extension, setup
 
 if importlib.util.find_spec("cython"):
+    import numpy as np
+
     ext_modules = [
         Extension(
             "pykooh.smooth_cython",
