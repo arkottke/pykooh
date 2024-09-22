@@ -64,6 +64,20 @@ quote-style = "double"
 select = ["E", "F", "W", "Q", "I"]
 ignore = ["E203"]
 
+[tool.hatch.envs.style]
+detached = true
+dependencies = [
+    "black[colorama,jupyter]",
+    "ruff"
+]
+
+# Format with black first to wrap comments
+[tool.hatch.envs.style.scripts]
+fmt = [
+    'black .',
+    'ruff check --fix .'
+]
+
 [tool.hatch.envs.test]
 dependencies = [
     "numba",
