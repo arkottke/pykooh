@@ -3,6 +3,7 @@
 from importlib.metadata import version
 
 import numpy as np
+import numpy.typing as npt
 
 try:
     from . import smooth_cython
@@ -31,6 +32,120 @@ def smooth(ko_freqs, freqs, spectrum, b, use_cython=True):
         smoothed = smooth_numba.smooth(ko_freqs, freqs, spectrum, b)
 
     return smoothed
+
+
+class CachedSmoother:
+    """
+    Pre-compute the weights of the Konno-Ohmachi window for repeated application.
+
+
+    Adapted from obspy: https://docs.obspy.org/_modules/obspy/signal/konnoohmachismoothing.html#calculate_smoothing_matrix
+
+    """
+
+    def __init__(
+        self,
+        freqs_in: npt.ArrayLike,
+        freqs_out: npt.ArrayLike,
+        bandwidth: float = 40.0,
+        normalize: bool = True,
+    ):
+        self._freqs_in = freqs_in
+        self._freqs_out = freqs_out
+
+        self._weights = np.empty((len(freqs_in), len(freqs_out)), freqs_in.dtype)
+        for i, freq_cent in enumerate(freqs_out):
+            self._weights[:, i] = self.window(freqs_in, freq_cent, bandwidth, normalize)
+
+    def freqs_match(self, freqs):
+        return len(freqs) == len(self._freqs_in) and np.allclose(freqs, self._freqs_in)
+
+    def __call__(self, signal: npt.ArrayLike, count=1) -> np.ndarray:
+        if len(signal) != len(self._freqs_in):
+            raise ValueError
+
+        smoothed = np.dot(signal, self._weights)
+
+        for _ in range(count - 1):
+            smoothed = np.dot(signal, self._weights)
+
+        return smoothed
+
+    @staticmethod
+    def window(
+        freqs: npt.ArrayLike,
+        freq_cent: float,
+        bandwidth: float = 40,
+        normalize: bool = False,
+    ) -> np.ndarray:
+        """Returns the Konno & Ohmachi Smoothing window for every frequency in
+        frequencies.
+
+        Returns the smoothing window around the center frequency with one value per
+        input frequency defined as follows (see [Konno1998]_)::
+
+            [sin(b * log_10(f/f_c)) / (b * log_10(f/f_c)]^4
+                b   = bandwidth
+                f   = frequency
+                f_c = center frequency
+
+        The bandwidth of the smoothing function is constant on a logarithmic scale.
+        A small value will lead to a strong smoothing, while a large value of will
+        lead to a low smoothing of the Fourier spectra.
+        The default (and generally used) value for the bandwidth is 40. (From the
+        `Geopsy documentation <http://www.geopsy.org>`_)
+
+        All parameters need to be positive. This is not checked due to performance
+        reasons and therefore any negative parameters might have unexpected
+        results.
+
+        Parameters
+        ----------
+        freqs : npt.ArrayLike
+            all frequencies for which the smoothing window will be returned.
+        freq_cent : float
+            frequency around which the smoothing is performed. Must be greater
+            or equal to 0.
+        bandwidth : float
+            Determines the width of the smoothing peak. Lower values result in a
+            broader peak. Must be greater than 0. Defaults to 40.
+        normalize : bool
+            The Konno-Ohmachi smoothing window is normalized on a logarithmic
+            scale. Set this parameter to True to normalize it on a normal scale.
+            Default to False.
+
+        Returns
+        -------
+        np.ndarray
+           Calculated weights
+        """
+        freqs = np.asarray(freqs)
+
+        # If the center_frequency is 0 return an array with zero everywhere except
+        # at zero.
+        if freq_cent == 0:
+            window = np.zeros(len(freqs), dtype=freqs.dtype)
+            window[freqs == 0.0] = 1.0
+            return window
+
+        # Disable div by zero errors and return zero instead
+        with np.errstate(divide="ignore", invalid="ignore"):
+            # Calculate the bandwidth*log10(f/f_c)
+            window = bandwidth * np.log10(freqs / freq_cent)
+            # Just the Konno-Ohmachi formulae.
+            window[:] = (np.sin(window) / window) ** 4
+        # Check if the center frequency is exactly part of the provided
+        # frequencies. This will result in a division by 0. The limit of f->f_c is
+        # one.
+        window[freqs == freq_cent] = 1.0
+        # Also a frequency of zero will result in a logarithm of -inf. The limit of
+        # f->0 with f_c!=0 is zero.
+        window[freqs == 0.0] = 0.0
+        # Normalize to one if wished.
+        if normalize:
+            window /= window.sum()
+
+        return window
 
 
 def effective_ampl(
