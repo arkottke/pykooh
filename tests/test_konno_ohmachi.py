@@ -2,9 +2,10 @@ import importlib
 
 import numpy as np
 import obspy
-import pykooh
 import pytest
 from obspy.signal.konnoohmachismoothing import konno_ohmachi_smoothing
+
+import pykooh
 
 from . import DATA_PATH
 
