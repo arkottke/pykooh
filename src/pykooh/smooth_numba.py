@@ -4,18 +4,24 @@ import numba
 import numpy as np
 
 
-@numba.jit(nopython=True)
+@numba.jit()
 def smooth(ko_freqs, freqs, spectrum, b):
-    max_ratio = pow(10.0, (3.0 / b))
-    min_ratio = 1.0 / max_ratio
+    # Minimum step
+    eps = np.finfo(freqs.dtype).eps
 
-    total = 0
-    window_total = 0
+    # Frequency range of significance
+    max_ratio = pow(10, 3 / b)
+    min_ratio = 1 / max_ratio
 
     ko_smooth = np.empty_like(ko_freqs)
+
     for i, fc in enumerate(ko_freqs):
-        if fc < 1e-6:
-            ko_smooth[i] = 0
+        # Check if we need a frequency near zero
+        if fc < eps:
+            if freqs[i] < eps:
+                ko_smooth[i] = spectrum[0]
+            else:
+                raise ValueError
             continue
 
         total = 0
@@ -23,15 +29,14 @@ def smooth(ko_freqs, freqs, spectrum, b):
         for j, freq in enumerate(freqs):
             frat = freq / fc
 
-            if freq < 1e-6 or frat > max_ratio or frat < min_ratio:
+            if freq < eps or frat < min_ratio or max_ratio < frat:
+                # Skip values outside the range
                 continue
-            elif np.abs(freq - fc) < 1e-6:
+            elif np.abs(freq - fc) < eps:
                 window = 1.0
             else:
                 x = b * np.log10(frat)
-                window = np.sin(x) / x
-                window *= window
-                window *= window
+                window = (np.sin(x) / x) ** 4
 
             total += window * spectrum[j]
             window_total += window
@@ -39,6 +44,7 @@ def smooth(ko_freqs, freqs, spectrum, b):
         if window_total > 0:
             ko_smooth[i] = total / window_total
         else:
-            ko_smooth[i] = 0
+            # Fill missing entries with nan
+            ko_smooth[i] = np.nan
 
     return ko_smooth

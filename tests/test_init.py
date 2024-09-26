@@ -1,7 +1,6 @@
 import numpy as np
-import pytest
-
 import pykooh
+import pytest
 
 from . import DATA_PATH
 
@@ -27,7 +26,7 @@ def fourier_spectra():
     return freqs, fourier_amps
 
 
-@pytest.mark.parametrize("missing", ["zero", "nan", "trim"])
+@pytest.mark.parametrize("missing", ["nan", "trim"])
 def test_effective_ampl(missing, fourier_spectra):
     freqs, fourier_amps = fourier_spectra
     # FIXME Add test

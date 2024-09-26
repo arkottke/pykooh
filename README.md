@@ -20,7 +20,7 @@ This code implements Konno-Ohmachi spectral smoothing as defined in:
     microtremor. Bulletin of the Seismological Society of America, 88(1),
     pp.228-241.
 
-This code was originally written for smoothing sub-module in
+This code was originally written for smoothing submodule in
 [gmprocess](https://github.com/usgs/groundmotion-processing/tree/master/gmprocess/smoothing)
 by Bruce Worden. Dave Boore has provided
 [notes](http://daveboore.com/daves_notes/notes%20on%20smoothing%20over%20logarithmically%20spaced%20freqs.pd)
@@ -36,18 +36,30 @@ provided in the [implementation](implemenation.ipynb) Jupyter Notebook.
 
 By default, `pykooh` uses `numba` for the fast implementation of the
 filter. Performance can be increased by using `cython`, but this
-requires a C complier. If a C compiler is available, install `cython`
+requires a C compiler. If a C compiler is available, install `cython`
 required dependencies with:
 
     pip install pykooh[cython]
 
 # Usage
 
-Smooth a signal using a bandwith of 30.
+Two primary approaches for using this library. Smooth a signal using a bandwidth of 30.
 
 ```python
 import pykooh
 signal_smooth = pykooh.smooth(freqs, freqs_raw, signal_raw, 30)
+```
+
+In other instances, where the smoothing is repeated applied, it might make more
+sense to use the `CachedSmoother`. This pre-computes the weights and then
+applies them with `np.dot`.
+
+```python
+import pykooh
+
+smoother = CachedSmoother(freqs_raw, freqs, 30)
+
+signal_smooth = smoother(signal_raw)
 ```
 
 Additional examples and comparison with `obspy` are provided in

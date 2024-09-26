@@ -1,34 +1,50 @@
-import numpy as np
-import pytest
+import importlib
 
+import numpy as np
+import obspy
 import pykooh
+import pytest
+from obspy.signal.konnoohmachismoothing import konno_ohmachi_smoothing
 
 from . import DATA_PATH
 
-try:
-    import Cython  # noqa: F401
-
-    has_cython = True
-except ImportError:
-    has_cython = False
-
-use_cython = (
-    [True, False]
-    if has_cython
-    else [
-        False,
-    ]
-)
+use_cython = [
+    False,
+]
+if importlib.util.find_spec("cython"):
+    use_cython.append(True)
 
 # Load test data
-data = np.load(str(DATA_PATH / "test_data.npz"))
-freqs = data["freqs"]
-raw_amps = data["fourier_amps"]
-smooth_amps = data["ko_amps"]
-b = data["b"]
+trace = obspy.read(DATA_PATH / "example_ts.mseed").traces[0]
+fa_raw = trace.stats["delta"] * np.abs(np.fft.rfft(trace.data))
+freqs = np.fft.rfftfreq(len(trace), d=trace.stats["delta"])
+
+bw = 40
+fa_sm_obspy = konno_ohmachi_smoothing(fa_raw, freqs, bw, normalize=True)
 
 
 @pytest.mark.parametrize("use_cython", use_cython)
 def test_smooth(use_cython):
-    calculated = pykooh.smooth(freqs, freqs, raw_amps, b, use_cython=use_cython)
-    np.testing.assert_allclose(calculated, smooth_amps, rtol=1e-3)
+    calc = pykooh.smooth(freqs, freqs, fa_raw, bw, use_cython=use_cython)
+    # if use_cython == False:
+    #     __import__("ipdb").set_trace()
+    np.testing.assert_allclose(calc, fa_sm_obspy, rtol=1e-3)
+
+
+def test_cached_smoother():
+    smoother = pykooh.CachedSmoother(freqs, freqs, bw, normalize=True)
+    calc = smoother(fa_raw)
+    np.testing.assert_allclose(calc, fa_sm_obspy, rtol=1e-3)
+
+
+@pytest.mark.parametrize("use_cython", use_cython)
+@pytest.mark.parametrize(
+    "freqs_sm", [np.linspace(0, 50, num=256), np.geomspace(0.1, 50, num=256)]
+)
+def test_freq_spacing(use_cython, freqs_sm):
+    smoother = pykooh.CachedSmoother(freqs, freqs_sm, bw, normalize=True)
+    fa_sm_cache = smoother(fa_raw)
+
+    fa_sm_calc = pykooh.smooth(freqs_sm, freqs, fa_raw, bw, use_cython=use_cython)
+
+    np.testing.assert_allclose(fa_sm_cache, fa_sm_calc, rtol=1e-3)

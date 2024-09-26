@@ -149,7 +149,7 @@ class CachedSmoother:
 
 
 def effective_ampl(
-    freqs, fourier_amps_h1, fourier_amps_h2, freqs_ea=None, missing="zero"
+    freqs, fourier_amps_h1, fourier_amps_h2, freqs_ea=None, missing="nan"
 ):
     """
     Compute the effective amplitude spectrum (EAS) as defined in Kottke et al.
@@ -170,7 +170,6 @@ def effective_ampl(
         decade and start at the start of the decade.
     missing: str (optional)
         Treatment of missing values. Options are:
-            'zero' - use 0 for missing values (default)
             'nan' - use `np.nan` for missing values
             'trim' - only provide EAS over the range of continuous values
     Returns
@@ -206,15 +205,13 @@ def effective_ampl(
     smoothed = smooth(freqs_ea, freqs, avg, 188.5)
 
     if missing == "nan":
-        smoothed[np.isclose(smoothed, 0)] = np.nan
-    elif missing == "trim":
-        # First index with continuously defined values
-        first = np.where(np.isclose(smoothed, 0))[0][-1] + 1
-        freqs_ea = freqs_ea[first:]
-        smoothed = smoothed[first:]
-    elif missing == "zero":
         # Default behavior
         pass
+    elif missing == "trim":
+        # First index with continuously defined values
+        first = np.where(np.isnan(smoothed))[0][-1] + 1
+        freqs_ea = freqs_ea[first:]
+        smoothed = smoothed[first:]
     else:
         raise NotImplementedError
 

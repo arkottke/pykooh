@@ -45,14 +45,7 @@ def test_notebook(fpath):
     with fpath.open() as fp:
         nb = nbformat.read(fp, as_version=4)
 
-    # Find which kernel to use. If it matches one installed use it. Otherwise try the
-    # first
-    if nb["metadata"]["kernelspec"]["name"] in kernel_specs:
-        kernel_name = nb["metadata"]["kernelspec"]["name"]
-    else:
-        kernel_name = list(kernel_specs)[0]
-
-    ep = ExecutePreprocessor(timeout=600, kernel_name=kernel_name)
+    ep = ExecutePreprocessor(timeout=600, kernel_name="py312")
 
     try:
         ep.preprocess(nb, {"metadata": {"path": fpath.parent}})
