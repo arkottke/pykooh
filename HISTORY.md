@@ -2,7 +2,9 @@
 
 ## v0.5.0 (2025-05-23)
 
-- Added CachedSmoother for repeated smoothing of data with the same frequencies
+- FEAT: CachedSmoother for repeated smoothing of data with the same frequencies
+- FEAT: Added a rigorous numba implementation that is identical to Obspy
+- DOC: Expanded the example notebook with more comparisons
 
 ## v0.4.0 (2024-05-08)
 

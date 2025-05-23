@@ -14,10 +14,10 @@
  * It was rewritten and optimized in C by Bruce Worden.
  */
 void konno_ohmachi_c(double *spec, double *freqs, int ns, double *ko_freqs,
-                     double *ko_smooth, int nks, double b) {
+                     double *ko_smooth, int nks, double bw, bool normalize) {
   int i, j;
   double window_total, total, x, fc, freq, frat, window;
-  double max_ratio = pow(10.0, (3.0 / b));
+  double max_ratio = pow(10.0, (3.0 / bw));
   double min_ratio = 1.0 / max_ratio;
 
   const double eps = 1e-10;
@@ -43,7 +43,7 @@ void konno_ohmachi_c(double *spec, double *freqs, int ns, double *ko_freqs,
       } else if (fabs(freq - fc) < eps) {
         window = 1.0;
       } else {
-        x = b * log10(frat);
+        x = bw * log10(frat);
         window = sin(x) / x;
         window *= window;
         window *= window;
@@ -52,7 +52,10 @@ void konno_ohmachi_c(double *spec, double *freqs, int ns, double *ko_freqs,
       window_total += window;
     }
     if (window_total > 0) {
-      ko_smooth[i] = total / window_total;
+      if (normalize) {
+        total /= window_total;
+      }
+      ko_smooth[i] = total;
     } else {
       ko_smooth[i] = NAN;
     }

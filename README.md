@@ -50,9 +50,10 @@ import pykooh
 signal_smooth = pykooh.smooth(freqs, freqs_raw, signal_raw, 30)
 ```
 
-In other instances, where the smoothing is repeated applied, it might make more
-sense to use the `CachedSmoother`. This pre-computes the weights and then
-applies them with `np.dot`.
+If you are okay with a little bit of inaccuracy, you can pass `simplified=True`
+and have a 10x increase in speed. In other instances, where the smoothing is
+repeated applied, it might make more sense to use the `CachedSmoother`. This
+pre-computes the weights and then applies them with `np.dot`.
 
 ```python
 import pykooh

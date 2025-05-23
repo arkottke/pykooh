@@ -22,14 +22,61 @@ __title__ = "pyKOOH"
 __version__ = version("pyKOOH")
 
 
-def smooth(ko_freqs, freqs, spectrum, b, use_cython=True):
+def smooth(
+    ko_freqs, freqs, spectrum, bw, use_cython=None, normalize=True, simplified=False
+):
+    """Smooth a spectrum.
+    This function smooths an input spectrum based on specified frequencies,
+    employing either a Cython or Numba backend for computation. It operates
+    on the absolute value of the input spectrum.
+    Parameters
+    ----------
+    ko_freqs : numpy.ndarray
+        Array of frequencies at which the smoothed spectrum is to be evaluated.
+    freqs : numpy.ndarray
+        Array of frequencies corresponding to the input `spectrum`.
+    spectrum : numpy.ndarray
+        The input spectrum to be smoothed. The function will use the
+        absolute value of this spectrum.
+    bw : float
+        Smoothing bandwidth parameter.
+    use_cython : bool, optional
+        If True and the Cython implementation (`smooth_cython`) is available
+        (indicated by a global `has_cython` flag), the Cython version is used.
+        Otherwise, the Numba implementation (`smooth_numba`) is used.
+        Defaults to True.
+    normalize : bool, optional
+        The Konno-Ohmachi smoothing window is normalized on a logarithmic
+        scale. Set this parameter to True to normalize it on a normal scale.
+        Default to False.
+    Returns
+    -------
+    numpy.ndarray
+        The smoothed spectrum, evaluated at `ko_freqs`.
+    Notes
+    -----
+    - The input `spectrum` is converted to its absolute values
+      (i.e., `numpy.abs(spectrum)`) before any smoothing is applied.
+    - The selection of the Cython backend is contingent upon the `use_cython`
+      parameter and the availability of the Cython compiled module (checked via
+      an external `has_cython` variable).
+    """
+
     # Only work on the absolute value
     spectrum = np.abs(spectrum)
 
-    if has_cython and use_cython:
-        smoothed = smooth_cython.smooth(ko_freqs, freqs, spectrum, b)
+    if use_cython:
+        if has_cython:
+            smoothed = smooth_cython.smooth(ko_freqs, freqs, spectrum, bw, normalize)
+        else:
+            raise ImportError(
+                "Cython implementation not available. "
+                "Please install the Cython module or set use_cython=False."
+            )
     else:
-        smoothed = smooth_numba.smooth(ko_freqs, freqs, spectrum, b)
+        smoothed = smooth_numba.smooth(
+            ko_freqs, freqs, spectrum, bw, normalize, simplified
+        )
 
     return smoothed
 
@@ -149,7 +196,13 @@ class CachedSmoother:
 
 
 def effective_ampl(
-    freqs, fourier_amps_h1, fourier_amps_h2, freqs_ea=None, missing="nan"
+    freqs,
+    fourier_amps_h1,
+    fourier_amps_h2,
+    freqs_ea=None,
+    missing="nan",
+    bw=188.5,
+    simplified=False,
 ):
     """
     Compute the effective amplitude spectrum (EAS) as defined in Kottke et al.
@@ -172,6 +225,12 @@ def effective_ampl(
         Treatment of missing values. Options are:
             'nan' - use `np.nan` for missing values
             'trim' - only provide EAS over the range of continuous values
+    bw: float (optional)
+        Bandwidth of the smoothing function. Default is 188.5 as defined in
+        Kottke et al. (2018)
+    simplified: bool (optional)
+        Use the simplified version of the smoothing function. This is
+        significantly faster but less accurate. Default is False.
     Returns
     -------
     freqs_ea: :class:`np.ndarray`
@@ -200,18 +259,15 @@ def effective_ampl(
         mask = (freqs[start] < freqs_ea) & (freqs_ea < freqs[-1])
         freqs_ea = freqs_ea[mask]
 
-    # Smooth the average spectrum using b of 188.5, which provides a smoothing
-    # operator with a bandwidth of 1/30 of a decade
-    smoothed = smooth(freqs_ea, freqs, avg, 188.5)
+    smoothed = smooth(freqs_ea, freqs, avg, bw, simplified=simplified, normalize=True)
 
     if missing == "nan":
         # Default behavior
         pass
     elif missing == "trim":
-        # First index with continuously defined values
-        first = np.where(np.isnan(smoothed))[0][-1] + 1
-        freqs_ea = freqs_ea[first:]
-        smoothed = smoothed[first:]
+        mask = np.isfinite(smoothed)
+        freqs_ea = freqs_ea[mask]
+        smoothed = smoothed[mask]
     else:
         raise NotImplementedError
 

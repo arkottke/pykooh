@@ -10,7 +10,7 @@ cimport numpy as np
 cdef extern from "smoothing.h":
     void konno_ohmachi_c(double *spec, double *freqs, int ns,
                          double *ko_freqs, double *ko_smooth, int nks,
-                         double b);
+                         double b, bool normalize);
 
 
 @cython.embedsignature(True)
@@ -18,7 +18,9 @@ def smooth(
         np.ndarray[double, ndim=1, mode='c']ko_freqs,
         np.ndarray[double, ndim=1, mode='c']freqs,
         np.ndarray[double, ndim=1, mode='c']spec,
-        b
+        bw,
+        normalize
+
 ):
     """
     Parameters
@@ -29,8 +31,12 @@ def smooth(
         Frequencies of the original spectrum
     spec: :class:`numpy.ndarray`
         Original spectrum
-    b: float
-        _b_ parameter of the filter window, controls bandwidth.
+    bw: float
+        _bw_ parameter of the filter window, controls bandwidth.
+    normalize: bool
+        The Konno-Ohmachi smoothing window is normalized on a logarithmic
+        scale. Set this parameter to True to normalize it on a normal scale.
+        Default to False.
     Returns
     -------
     smoothed: :class:`numpy.ndarray`
@@ -43,7 +49,7 @@ def smooth(
     konno_ohmachi_c(
         <double *>spec.data, <double *>freqs.data, ns,
         <double *>ko_freqs.data, <double *>ko_smooth.data, nks,
-        b
+        bw
     )
 
     return ko_smooth

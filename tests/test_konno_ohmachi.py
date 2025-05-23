@@ -28,7 +28,13 @@ fa_sm_obspy = konno_ohmachi_smoothing(fa_raw, freqs, bw, normalize=True)
 @pytest.mark.parametrize("use_cython", use_cython)
 def test_smooth(use_cython):
     calc = pykooh.smooth(freqs, freqs, fa_raw, bw, use_cython=use_cython)
-    np.testing.assert_allclose(calc, fa_sm_obspy, rtol=0.02)
+    np.testing.assert_allclose(calc, fa_sm_obspy, rtol=1e-3)
+
+
+def test_smooth_simpl():
+    calc = pykooh.smooth(freqs, freqs, fa_raw, bw, use_cython=False, simplified=True)
+    mask = np.isfinite(calc)
+    np.testing.assert_allclose(calc[mask], fa_sm_obspy[mask], rtol=0.065)
 
 
 def test_cached_smoother():
@@ -41,7 +47,7 @@ def test_cached_smoother():
 @pytest.mark.parametrize(
     "freqs_sm", [np.linspace(0, 50, num=256), np.geomspace(0.1, 50, num=256)]
 )
-def test_freq_spacing(use_cython, freqs_sm):
+def test_same_smoothing(use_cython, freqs_sm):
     smoother = pykooh.CachedSmoother(freqs, freqs_sm, bw, normalize=True)
     fa_sm_cache = smoother(fa_raw)
 
