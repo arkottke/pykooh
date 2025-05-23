@@ -4,25 +4,19 @@ requires = ["hatchling", "hatch-vcs", "hatch-cython"]
 
 [project]
 name = "pyKOOH"
-version = "0.4.0"
+version = "0.5.0"
 authors = [{ name = "Albert Kottke", email = "albert.kottke@gmail.com" }]
 description = "Efficient implementatins of the Konno Ohmachi filter in Python."
 readme = "README.md"
 requires-python = ">=3.10"
 license = { text = "MIT" }
-dependencies = [
-    "numpy",
-    "numba",
-    "setuptools",
-]
+dependencies = ["numpy", "numba", "setuptools"]
 
 [project.urls]
 Homepage = "https://github.com/arkottke/pykooh"
 
 [project.optional-dependencies]
-cython = [
-    "cython"
-]
+cython = ["cython"]
 
 [tool.hatch.build.targets.sdist]
 exclude = ["/*.yml", "/.*", "/.github", "/docs"]
@@ -34,21 +28,16 @@ packages = ["src/pykooh"]
 dependencies = ["hatch-cython", "numpy"]
 
 [tool.hatch.build.targets.wheel.hooks.cython.options]
-compile_args = [
-  "-v",
-  "-O3"
-]
+compile_args = ["-v", "-O3"]
 # include numpy headers
 include_numpy = true
-files = {exclude = [ "*.py" ]}
+files = { exclude = ["*.py"] }
 
 [tool.hatch.version]
 source = "vcs"
 
 [tool.ruff]
-exclude = [
-    "docs"
-]
+exclude = ["docs"]
 # Same as Black.
 line-length = 88
 indent-width = 4
@@ -66,28 +55,22 @@ ignore = ["E203"]
 
 [tool.hatch.envs.style]
 detached = true
-dependencies = [
-    "black[colorama,jupyter]",
-    "ruff"
-]
+dependencies = ["black[colorama,jupyter]", "ruff"]
 
 # Format with black first to wrap comments
 [tool.hatch.envs.style.scripts]
-fmt = [
-    'black .',
-    'ruff check --fix .'
-]
+fmt = ['black .', 'ruff check --fix .']
 
 [tool.hatch.envs.test]
 dependencies = [
-    "numba",
-    "coverage[toml]",
-    "jupyter_client",
-    "nbconvert",
-    "nbformat",
-    "obspy",
-    "pytest",
-    "pytest-cov",
+	"numba",
+	"coverage[toml]",
+	"jupyter_client",
+	"nbconvert",
+	"nbformat",
+	"obspy",
+	"pytest",
+	"pytest-cov",
 ]
 
 [tool.hatch.envs.test.env-vars]
