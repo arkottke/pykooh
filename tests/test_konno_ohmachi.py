@@ -1,5 +1,3 @@
-import importlib
-
 import numpy as np
 import obspy
 import pytest
@@ -9,11 +7,7 @@ import pykooh
 
 from . import DATA_PATH
 
-use_cython = [
-    False,
-]
-if importlib.util.find_spec("cython"):
-    use_cython.append(True)
+use_cython = [False, True]
 
 # Load test data generated from the example.ipynb notebook.
 # The reference is computed by Obspy
@@ -27,7 +21,11 @@ fa_sm_obspy = konno_ohmachi_smoothing(fa_raw, freqs, bw, normalize=True)
 
 @pytest.mark.parametrize("use_cython", use_cython)
 def test_smooth(use_cython):
-    calc = pykooh.smooth(freqs, freqs, fa_raw, bw, use_cython=use_cython)
+    try:
+        calc = pykooh.smooth(freqs, freqs, fa_raw, bw, use_cython=use_cython)
+    except ImportError:
+        pytest.skip("Cython is not installed")
+
     np.testing.assert_allclose(calc, fa_sm_obspy, rtol=1e-3)
 
 
@@ -51,7 +49,10 @@ def test_same_smoothing(use_cython, freqs_sm):
     smoother = pykooh.CachedSmoother(freqs, freqs_sm, bw, normalize=True)
     fa_sm_cache = smoother(fa_raw)
 
-    fa_sm_calc = pykooh.smooth(freqs_sm, freqs, fa_raw, bw, use_cython=use_cython)
+    try:
+        fa_sm_calc = pykooh.smooth(freqs_sm, freqs, fa_raw, bw, use_cython=use_cython)
+    except ImportError:
+        pytest.skip("Cython is not installed")
 
     # FIXME: Can we use a tigher tolerance
     np.testing.assert_allclose(fa_sm_cache, fa_sm_calc, rtol=0.025)
