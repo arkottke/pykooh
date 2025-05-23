@@ -1,5 +1,9 @@
 # Revision History
 
+## v0.5.0 (2025-05-23)
+
+- Added CachedSmoother for repeated smoothing of data with the same frequencies
+
 ## v0.4.0 (2024-05-08)
 
 - Change to pyproject-based build

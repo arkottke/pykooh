@@ -50,8 +50,8 @@ class CachedSmoother:
         bandwidth: float = 40.0,
         normalize: bool = True,
     ):
-        self._freqs_in = freqs_in
-        self._freqs_out = freqs_out
+        self._freqs_in = np.asarray(freqs_in)
+        self._freqs_out = np.asarray(freqs_out)
 
         self._weights = np.empty((len(freqs_in), len(freqs_out)), freqs_in.dtype)
         for i, freq_cent in enumerate(freqs_out):
