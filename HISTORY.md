@@ -2,6 +2,7 @@
 
 ## v0.5.0 (2025-05-23)
 
+- CHANGE: Removed the `cython` dependency. The package now uses `numba` for JIT compilation.
 - FEAT: CachedSmoother for repeated smoothing of data with the same frequencies
 - FEAT: Added a rigorous numba implementation that is identical to Obspy
 - DOC: Expanded the example notebook with more comparisons
@@ -26,7 +27,7 @@
 
 ## v0.3.0
 
-- Rename to pykoom
+- Rename to pykooh
 - Add support for numba
 - Make cython an optonal dependency
 

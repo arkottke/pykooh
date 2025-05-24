@@ -5,14 +5,6 @@ from importlib.metadata import version
 import numpy as np
 import numpy.typing as npt
 
-try:
-    from . import smooth_cython
-
-    has_cython = True
-except ImportError:
-    has_cython = False
-    smooth_cython = None
-
 from . import smooth_numba
 
 __author__ = "Albert Kottke"
@@ -23,12 +15,11 @@ __version__ = version("pyKOOH")
 
 
 def smooth(
-    ko_freqs, freqs, spectrum, bw, use_cython=None, normalize=True, simplified=False
+    ko_freqs, freqs, spectrum, bw, normalize=True, simplified=False, use_cython=False
 ):
     """Smooth a spectrum.
-    This function smooths an input spectrum based on specified frequencies,
-    employing either a Cython or Numba backend for computation. It operates
-    on the absolute value of the input spectrum.
+    This function smooths an input spectrum using the Numba backend for
+    computation. It operates on the absolute value of the input spectrum.
     Parameters
     ----------
     ko_freqs : numpy.ndarray
@@ -40,15 +31,13 @@ def smooth(
         absolute value of this spectrum.
     bw : float
         Smoothing bandwidth parameter.
-    use_cython : bool, optional
-        If True and the Cython implementation (`smooth_cython`) is available
-        (indicated by a global `has_cython` flag), the Cython version is used.
-        Otherwise, the Numba implementation (`smooth_numba`) is used.
-        Defaults to True.
     normalize : bool, optional
         The Konno-Ohmachi smoothing window is normalized on a logarithmic
         scale. Set this parameter to True to normalize it on a normal scale.
-        Default to False.
+        Default to True.
+    simplified : bool, optional
+        Use simplified implementation for faster computation with slightly
+        reduced accuracy. Default to False.
     Returns
     -------
     numpy.ndarray
@@ -57,26 +46,15 @@ def smooth(
     -----
     - The input `spectrum` is converted to its absolute values
       (i.e., `numpy.abs(spectrum)`) before any smoothing is applied.
-    - The selection of the Cython backend is contingent upon the `use_cython`
-      parameter and the availability of the Cython compiled module (checked via
-      an external `has_cython` variable).
+    - This implementation uses Numba for efficient computation.
     """
+    if use_cython:
+        raise DeprecationWarning("Cython backend is deprecated. Use Numba instead.")
 
     # Only work on the absolute value
     spectrum = np.abs(spectrum)
 
-    if use_cython:
-        if has_cython:
-            smoothed = smooth_cython.smooth(ko_freqs, freqs, spectrum, bw, normalize)
-        else:
-            raise ImportError(
-                "Cython implementation not available. "
-                "Please install the Cython module or set use_cython=False."
-            )
-    else:
-        smoothed = smooth_numba.smooth(
-            ko_freqs, freqs, spectrum, bw, normalize, simplified
-        )
+    smoothed = smooth_numba.smooth(ko_freqs, freqs, spectrum, bw, normalize, simplified)
 
     return smoothed
 

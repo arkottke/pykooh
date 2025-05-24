@@ -3,7 +3,6 @@
 codacy-coverage
 cryptography
 
-cython
 ipykernel
 jupyter_client
 nbconvert

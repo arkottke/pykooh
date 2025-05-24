@@ -34,12 +34,15 @@ provided in the [implementation](implemenation.ipynb) Jupyter Notebook.
 
     pip install pykooh
 
-By default, `pykooh` uses `numba` for the fast implementation of the
-filter. Performance can be increased by using `cython`, but this
-requires a C compiler. If a C compiler is available, install `cython`
-required dependencies with:
+`pykooh` uses `numba` for fast implementation of the filter.
 
-    pip install pykooh[cython]
+## Implementation Notes
+
+Previous versions of `pykooh` supported both Numba and Cython implementations.
+Testing showed that both implementations provided similar calculation speeds,
+but Cython required significantly more effort for packaging and distribution.
+Therefore, Cython support has been removed in favor of the Numba-only
+implementation which provides excellent performance with much simpler packaging.
 
 # Usage
 
@@ -63,6 +66,15 @@ smoother = CachedSmoother(freqs_raw, freqs, 30)
 signal_smooth = smoother(signal_raw)
 ```
 
+By default, all of the smoothing functions normalize that weights, which is
+different than the default behavior of `obspy`. By normalizing the weights, the
+amplitude of the FAS is perserved regardless of spacing of the frequency values.
+Comparison of the smoothing provided by `pykooh` is compared with that of
+`obspy` in the following figure. The simplified numba routine results in some
+minor reduction in accuracy.
+
+![Method Comparison](comparison_plot.png)
+
 Additional examples and comparison with `obspy` are provided in
 [example](example.ipynb).
 
@@ -70,3 +82,7 @@ Additional examples and comparison with `obspy` are provided in
 
 Please cite this software using the following
 [DOI](https://zenodo.org/badge/latestdoi/183696586).
+
+```
+Albert Kottke. (2025). arkottke/pykooh (v0.5.0). Zenodo. https://doi.org/10.5281/zenodo.15499453
+```

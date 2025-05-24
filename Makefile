@@ -48,8 +48,6 @@ lint:
 	flake8 pykooh tests
 
 test:
-	# Build the Cython dependencies
-	python setup.py build_ext --inplace --force --define CYTHON_TRACE
 	# Disable numba jit
 	NUMBA_DISABLE_JIT=1 pytest --cov-report html --cov=pykooh tests/
 
