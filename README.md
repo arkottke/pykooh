@@ -23,7 +23,7 @@ This code implements Konno-Ohmachi spectral smoothing as defined in:
 This code was originally written for smoothing submodule in
 [gmprocess](https://github.com/usgs/groundmotion-processing/tree/master/gmprocess/smoothing)
 by Bruce Worden. Dave Boore has provided
-[notes](http://daveboore.com/daves_notes/notes%20on%20smoothing%20over%20logarithmically%20spaced%20freqs.pd)
+[notes](http://daveboore.com/daves_notes/notes%20on%20smoothing%20over%20logarithmically%20spaced%20freqs.pdf)
 on this topic, which also may be of interest. Notes regarding the
 characteristics of the Konno-Ohmachi filter and the implementation are
 provided in the [implementation](implemenation.ipynb) Jupyter Notebook.
