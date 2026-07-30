@@ -1,5 +1,13 @@
 # Revision History
 
+## v0.5.1 (2026-07-30)
+
+- CHANGE: Removed the unused `setuptools` runtime dependency. The package builds
+  with `hatchling` and reads its version through `importlib.metadata`, so
+  `setuptools` was never imported at runtime, but it was pulled into the install
+  closure of every downstream package.
+- DOC: Fixed the link to Dave Boore's notes
+
 ## v0.5.0 (2025-05-23)
 
 - CHANGE: Removed the `cython` dependency. The package now uses `numba` for JIT compilation.
