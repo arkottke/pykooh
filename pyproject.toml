@@ -10,7 +10,7 @@ description = "Efficient implementatins of the Konno Ohmachi filter in Python."
 readme = "README.md"
 requires-python = ">=3.10"
 license = { text = "MIT" }
-dependencies = ["numpy", "numba", "setuptools"]
+dependencies = ["numpy", "numba"]
 
 [project.urls]
 Homepage = "https://github.com/arkottke/pykooh"
